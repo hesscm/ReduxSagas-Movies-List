@@ -16,14 +16,27 @@ import {useHistory} from 'react-router-dom';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('TO_DETAILS_PAGE', postMovieID);
+    yield takeEvery('GET_MOVIE_ID', getMovieID);
+}
+
+function* getMovieID() {
+    try {
+        const movieID = yield axios.get('/api/movie/movieID');
+        console.log(movieID.data);
+        yield put({ type: 'SET_MOVIE_ID', payload: movieID.data[0]})
+
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 //function to post movie ID on the server
 //The most recent movie viewed on the details page is saved on refresh
 function* postMovieID(action) {
     try {
-        const movieID = yield axios.post('/api/movie/movieID', {id: action.payload});
-        
+        yield axios.post('/api/movie/movieID', {id: action.payload});
+        yield put({type: 'SET_MOVIE_ID', payload: action.payload});
+ 
     } catch (error) {
         console.log(error);
     }
@@ -57,12 +70,11 @@ const movies = (state = [], action) => {
 }
 
 //reducer to hold what movie was selected
-const movieID = (state = 1, action) => {
+const movieID = (state = {}, action) => {
     switch (action.type) {
-        case 'TO_DETAILS_PAGE':
+        case 'SET_MOVIE_ID':
+            console.log('in movieID reducer', action.payload);
             return action.payload;
-        // case 'SET_MOVIES':
-        //     return action.payload.id;
         default:
             return state;
     }

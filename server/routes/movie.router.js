@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 router.post('/movieID', (req, res) => {
   try {
     console.log('id', req.body);
-    movieID = req.body;
+    movieID = req.body.id;
     res.sendStatus(200);
   } catch (error) {
     console.log(err);
@@ -32,13 +32,18 @@ router.post('/movieID', (req, res) => {
 //get route to change the movie ID variable
 //This is used to save the movie on the details page
 router.get('/movieID', (req, res) => {
-  try {
-    res.status(200).send(movieID);
-  } catch (error) {
-    console.log(error);
-    res.sendStatus(500);
-  }
-}) //end movieID get
+  console.log('movieID', movieID);
+  const query = `SELECT * FROM movies WHERE id = '${movieID}'`;
+  pool.query(query)
+    .then(result => {
+      res.send(result.rows);
+      console.log(result.rows);
+    })
+    .catch(err => {
+      console.log('ERROR: Get all movies', err);
+      res.sendStatus(500)
+    })
+}); //end movies get
 
 //post to add a movie to the DB
 router.post('/', (req, res) => {

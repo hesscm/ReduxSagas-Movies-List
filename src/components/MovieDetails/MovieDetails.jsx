@@ -5,17 +5,20 @@ import MovieDetailsItem from './MovieDetailsItem';
 function MovieDetails() {
 
     const dispatch = useDispatch();
-    const movies = useSelector(store => store.movies);
-    console.log('movieDetails', movies);
+    const movie = useSelector(store => store.movieID);
+
+    console.log('movieDetails', movie);
+
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_DETAILS_MOVIE' });
+        dispatch({ type: 'GET_MOVIE_ID' });
     }, []);
 
     return (
         <main>
             <h1>MovieList</h1>
             <section className="movies">
+                <p>{movie.title}</p>
             </section>
         </main>
 
