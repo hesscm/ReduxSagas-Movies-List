@@ -10,10 +10,23 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    yield takeEvery('TO_DETAILS_PAGE', postMovieID);
+}
+
+//function to post movie ID on the server
+//The most recent movie viewed on the details page is saved on refresh
+function* postMovieID(action) {
+    try {
+        const movieID = yield axios.post('/api/movie/movieID', {id: action.payload});
+        
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function* fetchAllMovies() {
@@ -23,8 +36,8 @@ function* fetchAllMovies() {
         console.log('get all:', movies.data);
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
-    } catch {
-        console.log('get all error');
+    } catch(error) {
+        console.log(error);
     }
         
 }
@@ -36,7 +49,20 @@ const sagaMiddleware = createSagaMiddleware();
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
+            console.log('movies reducer', action.payload);
             return action.payload;
+        default:
+            return state;
+    }
+}
+
+//reducer to hold what movie was selected
+const movieID = (state = 1, action) => {
+    switch (action.type) {
+        case 'TO_DETAILS_PAGE':
+            return action.payload;
+        // case 'SET_MOVIES':
+        //     return action.payload.id;
         default:
             return state;
     }
@@ -56,6 +82,7 @@ const genres = (state = [], action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
+        movieID,
         genres,
     }),
     // Add sagaMiddleware to our store

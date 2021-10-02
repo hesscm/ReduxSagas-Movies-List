@@ -7,6 +7,7 @@ function MovieList() {
 
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
+    console.log('movieList',movies);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
@@ -19,10 +20,6 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                         <MovieListItem key={movie.id} movie={movie}/>
-                        // <div key={movie.id} >
-                        //     <h3>{movie.title}</h3>
-                        //     <img src={movie.poster} alt={movie.title}/>
-                        // </div>
                     );
                 })}
             </section>

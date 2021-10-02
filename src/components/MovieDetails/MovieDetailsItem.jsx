@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
-import {useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function MovieListItem({ movie }) {
+function MovieDetailsItem({ movie }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleClickEvent = () => {
         console.log('hey there');
-        dispatch({type: 'TO_DETAILS_PAGE', payload: movie.id})
+        dispatch({ type: 'TO_DETAILS_PAGE', payload: movie.id })
         history.push('/details')
 
     }
@@ -20,4 +20,4 @@ function MovieListItem({ movie }) {
     );
 }
 
-export default MovieListItem;
+export default MovieDetailsItem;
