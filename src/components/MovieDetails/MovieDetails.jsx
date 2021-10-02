@@ -1,25 +1,42 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MovieDetailsItem from './MovieDetailsItem';
+import './MovieDetails.css'
+
 
 function MovieDetails() {
 
     const dispatch = useDispatch();
-    const movie = useSelector(store => store.movieID);
+    const movie = useSelector(store => store.movie);
+    const genres = useSelector(store => store.genres);
+    let genresString = '';
 
-    console.log('movieDetails', movie);
+    const makeGenresString = () => {
+        console.log('oh no', genres);
+        for (let i = 0; i < genres.length; i++) {
+            if (i != genres.length - 1) {
+                genresString += genres[i] + ', ';
+            } else {
+                genresString += genres[i];
+            }
+        }
+    }
+    makeGenresString();
+
 
 
     useEffect(() => {
-        dispatch({ type: 'GET_MOVIE_ID' });
+        dispatch({ type: 'GET_MOVIE' });
     }, []);
 
     return (
         <main>
-            <h1>MovieList</h1>
-            <section className="movies">
-                <p>{movie.title}</p>
-            </section>
+            <div className='movie'>
+                <h1>{movie.title}</h1>
+                <img src={movie.poster} alt={movie.title} />
+                <h4>Genres: {genresString}</h4>
+                <h4>Description</h4> <br />
+                {movie.description}
+            </div>
         </main>
 
     );

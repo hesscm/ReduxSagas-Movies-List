@@ -16,14 +16,15 @@ import {useHistory} from 'react-router-dom';
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('TO_DETAILS_PAGE', postMovieID);
-    yield takeEvery('GET_MOVIE_ID', getMovieID);
+    yield takeEvery('GET_MOVIE', getMovie);
 }
 
-function* getMovieID() {
+function* getMovie() {
     try {
-        const movieID = yield axios.get('/api/movie/movieID');
-        console.log(movieID.data);
-        yield put({ type: 'SET_MOVIE_ID', payload: movieID.data[0]})
+        const movie = yield axios.get('/api/movie/movieID');
+        console.log(movie.data);
+        yield put({ type: 'SET_MOVIE', payload: movie.data[0]})
+        yield put({type: 'SET_GENRES', payload: movie.data[0].genres})
 
     } catch (error) {
         console.log(error);
@@ -35,7 +36,7 @@ function* getMovieID() {
 function* postMovieID(action) {
     try {
         yield axios.post('/api/movie/movieID', {id: action.payload});
-        yield put({type: 'SET_MOVIE_ID', payload: action.payload});
+        yield put({type: 'SET_MOVIE', payload: action.payload});
  
     } catch (error) {
         console.log(error);
@@ -62,7 +63,6 @@ const sagaMiddleware = createSagaMiddleware();
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
-            console.log('movies reducer', action.payload);
             return action.payload;
         default:
             return state;
@@ -70,9 +70,9 @@ const movies = (state = [], action) => {
 }
 
 //reducer to hold what movie was selected
-const movieID = (state = {}, action) => {
+const movie = (state = {}, action) => {
     switch (action.type) {
-        case 'SET_MOVIE_ID':
+        case 'SET_MOVIE':
             console.log('in movieID reducer', action.payload);
             return action.payload;
         default:
@@ -84,6 +84,7 @@ const movieID = (state = {}, action) => {
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
+            console.log('in genres reducer', action.payload);
             return action.payload;
         default:
             return state;
@@ -94,7 +95,7 @@ const genres = (state = [], action) => {
 const storeInstance = createStore(
     combineReducers({
         movies,
-        movieID,
+        movie,
         genres,
     }),
     // Add sagaMiddleware to our store

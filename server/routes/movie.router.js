@@ -33,7 +33,7 @@ router.post('/movieID', (req, res) => {
 //This is used to save the movie on the details page
 router.get('/movieID', (req, res) => {
   console.log('movieID', movieID);
-  const query = `SELECT * FROM movies WHERE id = '${movieID}'`;
+  const query = `SELECT movies.*, array_agg(genres.name) AS genres FROM movies JOIN movies_genres ON movies.id = movies_genres.movie_id JOIN genres ON genres.id = movies_genres.genre_id WHERE movies.id = ${movieID} GROUP BY movies.id;`;
   pool.query(query)
     .then(result => {
       res.send(result.rows);

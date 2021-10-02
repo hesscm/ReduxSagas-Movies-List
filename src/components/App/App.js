@@ -15,6 +15,7 @@ function App() {
         </Route>
 
         <Route path="/details">
+          <Link to="/">Back To List</Link>
         <MovieDetails />
       </Route>
 
