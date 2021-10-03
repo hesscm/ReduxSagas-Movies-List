@@ -120,6 +120,9 @@ function AddMovie() {
                 </FormControl>
 
                 <p>Note: You can select multiple genres with the command(Mac) or ctrl(Windows) button.</p>
+                <p>Web URLS work too for the poster path! Try this for 'Star Wars':</p>
+                <p>https://m.media-amazon.com/images/I/A1wnJQFI82L._AC_SY879_.jpg</p>
+
                 <br />
 
                 <Button

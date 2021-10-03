@@ -9,3 +9,10 @@
     border: 4mm ridge rgba(224, 37, 37, 0.6);
     margin: auto;
 }
+
+
+/* new images should be the same dimensions */
+img {
+    width: 185px;
+    height: 273px;
+}
