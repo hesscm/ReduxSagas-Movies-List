@@ -4,24 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import MovieListItem from './MovieListItem';
 import { useHistory } from 'react-router';
+import { Typography } from '@mui/material';
 
 function MovieList() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const movies = useSelector(store => store.movies);
+    const movies = useSelector(store => store.movies); //from reducer
 
+    //on page load, get the movies
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
+    //go to /addmovie page 'Add A Movie' button is clicked
     const handleClickEvent = () => {
         history.push("/addmovie");
-
     }
 
     return (
         <main>
-            <h1>Here are our movies. Click to learn more!</h1>
+            <Typography variant="h3">Here are our movies. Click to learn more!</Typography>
             <Button
                 variant="contained"
                 style={{
@@ -29,7 +31,6 @@ function MovieList() {
                     width: "200px",
                     fontSize: "20px",
                     margin: "10px",
-                    hover: "red"
                 }}
                 onClick={handleClickEvent}>
                 Add A Movie

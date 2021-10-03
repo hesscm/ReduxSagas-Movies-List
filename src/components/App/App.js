@@ -4,29 +4,47 @@ import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovie from './AddMovie/AddMovie';
 import { Typography } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+//establish a theme with MUI
+//Source: https://blog.logrocket.com/3-ways-to-add-custom-fonts-to-your-material-ui-project/
+const theme = createTheme({
+  typography: {
+    fontFamily: [
+      'Franklin Gothic Medium',
+      'Arial Narrow',
+      'Arial',
+      'sans-serif'
+    ].join(','),
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Typography variant="h1">The Movies Saga!</Typography>
-      </header>
+    //wrap the app in a theme with MUI
+    <ThemeProvider theme={theme}>
 
-      <Router>
-        <Route path="/" exact>
-          <MovieList />
-        </Route>
+      <div className="App">
+        <header className="App-header">
+          <Typography variant="h1">The Movies Saga!</Typography>
+        </header>
 
-        <Route path="/details">
-          <MovieDetails />
-        </Route>
+        <Router>
+          <Route path="/" exact>
+            <MovieList />
+          </Route>
 
-        <Route path="/addmovie">
-          <AddMovie />
-        </Route>
+          <Route path="/details">
+            <MovieDetails />
+          </Route>
 
-      </Router>
-    </div >
+          <Route path="/addmovie">
+            <AddMovie />
+          </Route>
+
+        </Router>
+      </div >
+    </ThemeProvider>
   );
 }
 
