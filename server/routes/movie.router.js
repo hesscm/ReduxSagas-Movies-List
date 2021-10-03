@@ -71,15 +71,19 @@ router.post('/', (req, res) => {
       //loop to send a query insert for how many genres were added to the movie
       for (let i = 0; i < req.body.genres.length; i++) {
         pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genres[i]])
-          .then(result => {
-            //Now that both are done, send back success!
-            res.sendStatus(201);
-          }).catch(err => {
-            // catch for second query
-            console.log(err);
-            res.sendStatus(500)
-          })
+          
       }
+      //this is the only way I could get this to stop from breaking the .then
+      //I understand this is wrong, don't know what the right answer is though
+      pool.query("SELECT * FROM movies")
+      .then(result => {
+        //Now that both are done, send back success!
+        res.sendStatus(201);
+      }).catch(err => {
+        // catch for second query
+        console.log(err);
+        res.sendStatus(500)
+      })
 
       // Catch for first query
     }).catch(err => {

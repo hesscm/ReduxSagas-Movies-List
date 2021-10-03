@@ -16,14 +16,14 @@ function MovieList() {
 
     const handleClickEvent = () => {
         history.push("/addmovie");
-        
+
     }
 
     return (
         <main>
             <h1>Here are our movies. Click to learn more!</h1>
-            <Button 
-            variant="contained"
+            <Button
+                variant="contained"
                 style={{
                     backgroundColor: "#640d14",
                     width: "200px",
@@ -31,12 +31,14 @@ function MovieList() {
                     margin: "10px",
                     hover: "red"
                 }}
-            onClick={handleClickEvent}>Add A Movie</Button>
+                onClick={handleClickEvent}>
+                Add A Movie
+            </Button>
             <br /> <br />
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <MovieListItem key={movie.id} movie={movie}/>
+                        <MovieListItem key={movie.id} movie={movie} />
                     );
                 })}
             </section>

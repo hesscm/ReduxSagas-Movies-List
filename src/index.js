@@ -10,7 +10,6 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -34,8 +33,8 @@ function* getMovie() {
     try {
         const movie = yield axios.get('/api/movie/movieID');
         console.log(movie.data);
-        yield put({ type: 'SET_MOVIE', payload: movie.data[0]})
-        yield put({type: 'SET_GENRES', payload: movie.data[0].genres})
+        yield put({ type: 'SET_MOVIE', payload: movie.data[0] })
+        yield put({ type: 'SET_GENRES', payload: movie.data[0].genres })
 
     } catch (error) {
         console.log(error);
@@ -60,10 +59,9 @@ function* fetchAllMovies() {
         const movies = yield axios.get('/api/movie');
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
-    } catch(error) {
+    } catch (error) {
         console.log(error);
     }
-        
 }
 
 // Create sagaMiddleware

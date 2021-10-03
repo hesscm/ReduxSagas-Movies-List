@@ -1,19 +1,18 @@
-import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovie from './AddMovie/AddMovie';
 import { Typography } from '@mui/material';
 
-
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <Typography variant="h1">The Movies Saga!</Typography>
+        <Typography variant="h1">The Movies Saga!</Typography>
       </header>
-      <Router>
 
+      <Router>
         <Route path="/" exact>
           <MovieList />
         </Route>
@@ -30,6 +29,5 @@ function App() {
     </div >
   );
 }
-
 
 export default App;

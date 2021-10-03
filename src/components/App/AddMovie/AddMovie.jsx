@@ -53,8 +53,8 @@ function AddMovie() {
     const handleFormSubmit = (event) => {
         event.preventDefault(); //stop page from refreshing
         dispatch({type: 'ADD_NEW_MOVIE', payload: newMovie})
-        console.log('newGenres', newGenres);
         console.log(newMovie);
+        alert('New Movie Added. Now Returning to the main page.')
         history.push("/"); //go to the home page
     }
     return (
@@ -63,6 +63,7 @@ function AddMovie() {
 
             <form onSubmit={handleFormSubmit}>
                 <input
+                    required
                     type='text'
                     placeholder='Title'
                     id="title"
@@ -70,6 +71,7 @@ function AddMovie() {
                     onChange={(event) => setNewMovie({ ...newMovie, title: event.target.value })}
                 />
                 <input
+                    required
                     type='text'
                     placeholder='Poster Path'
                     id="poster"
@@ -78,6 +80,7 @@ function AddMovie() {
                 />
                 <br />
                 <textarea
+                    required
                     placeholder='Movie Description'
                     id="description"
                     value={newMovie.description}
@@ -85,11 +88,12 @@ function AddMovie() {
                 />
                 <br />
                 {/* taken directly from MUI with minor labeling adjustments */}
-                <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 300 }}>
-                    <InputLabel style={{color: "white", borderColor: "red"}} shrink htmlFor="select-multiple-native">
+                <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 175 }}>
+                    <InputLabel style={{color: "white"}} shrink htmlFor="select-multiple-native">
                         Genres
                     </InputLabel>
                     <Select
+                        required
                         multiple
                         native
                         style={{
