@@ -62,12 +62,20 @@ router.post('/', (req, res) => {
       const createdMovieId = result.rows[0].id
 
       // Now handle the genre reference
-      const insertMovieGenreQuery = `
-      INSERT INTO "movies_genres" ("movie_id", "genre_id")
-      VALUES  ($1, $2);
-      `
+      //updated query to match genre name instead of ID
+      const insertMovieGenreQuery =
+      `INSERT into movies_genres (movie_id, genre_id)
+       VALUES($1, (SELECT genres.id FROM genres WHERE genres.name = $2));`
+
       // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
-      pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
+      //loop to send a query insert for how many genres were added to the movie
+      for (let i = 0; i < req.body.genres.length; i++) {
+        pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genres[i]])
+      }
+      //I don't know how to get the .then to work without having a pool request immediately preceding
+      //the loops breaks it because of the {}
+      pool.query('SELECT * FROM movies')
+      .then(result => {
         //Now that both are done, send back success!
         res.sendStatus(201);
       }).catch(err => {
