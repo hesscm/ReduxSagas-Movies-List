@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieDetails.css'
 import { useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
+import { Typography } from '@mui/material';
 
 function MovieDetails() {
-
     const history = useHistory();
     const dispatch = useDispatch();
     const movie = useSelector(store => store.movie); //movie reducer array
@@ -30,35 +30,40 @@ function MovieDetails() {
         }
         return genresString;
     }
-    makeGenresString();
+    makeGenresString(); //call this function
 
+    //when 'Back To List' is clicked, go to home page
     const handleClickEvent = () => {
         history.push("/");
     }
 
     return (
         <main>
- 
-            <div className='movie'>
-                <h1>{movie.title}</h1>
+            <div className='details'>
+                <Typography variant="h4">{movie.title}</Typography>
                 <img src={movie.poster} alt={movie.title} />
-                <h5>Genres: {genresString}</h5>
-                <h3>Description</h3>
-                {movie.description}
+                <Typography variant="h6">Genres: {genresString}</Typography>
+                {/* a little styling for the description */}
+                <div className='description'>
+                    <div className='descriptionTitle'>
+                        <Typography variant="h5">Description</Typography>
+                    </div>
+                    <Typography variant="subtitle1">{movie.description}</Typography>
+                </div>
                 <br />
+                {/* button to go to home page */}
                 <Button
                     style={{
                         backgroundColor: "#640d14",
                         margin: "10px"
                     }}
-                    variant="contained" onClick={handleClickEvent}>Back To List
+                    variant="contained" onClick={handleClickEvent}>
+                    Back To List
                 </Button>
             </div>
-
         </main>
     );
 }
-
 export default MovieDetails;
 
 

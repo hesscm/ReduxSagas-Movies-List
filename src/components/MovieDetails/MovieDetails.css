@@ -1,5 +1,14 @@
-.movie {
+.details {
     width: 500px;
     margin: auto;
+    border: 4mm ridge rgba(224, 37, 37, 0.6);
+}
+
+.description {
+    border: 2px solid antiquewhite;
+}
+
+.descriptionTitle {
+    border-bottom: 2px solid antiquewhite;
 
 }
