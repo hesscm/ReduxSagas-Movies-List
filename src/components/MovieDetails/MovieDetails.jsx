@@ -35,8 +35,6 @@ const handleClickEvent = () => {
     history.push("/");
 }
 
-    
-
     return (
         <main>
             <button onClick={handleClickEvent}>Back To List</button>
