@@ -41,8 +41,10 @@ function App() {
           <Route path="/addmovie">
             <AddMovie />
           </Route>
-
         </Router>
+        <footer className='App-footer'>
+          <Typography variant="subtitle2">Christopher Hess: Student, Prime Digital Academy, 2021</Typography>
+        </footer>
       </div >
     </ThemeProvider>
   );

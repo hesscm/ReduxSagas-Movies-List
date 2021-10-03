@@ -23,3 +23,11 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.App-footer {
+  position: relative;
+  text-align: right;
+  bottom: 0;
+  right: 0;
+  padding: 5px;
+}

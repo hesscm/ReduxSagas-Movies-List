@@ -23,7 +23,7 @@ function MovieList() {
 
     return (
         <main>
-            <Typography variant="h3">Here are our movies. Click to learn more!</Typography>
+            <Typography variant="h3">Here are our movies. Click a movie to learn more!</Typography>
             <Button
                 variant="contained"
                 style={{

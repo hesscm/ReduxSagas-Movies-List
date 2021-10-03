@@ -4,8 +4,8 @@
 }
 
 .movie {
-    width: 200px;
-    height: 400px;
+    width: 300px;
+    height: 430px;
     border: 4mm ridge rgba(224, 37, 37, 0.6);
     margin: auto;
 }
