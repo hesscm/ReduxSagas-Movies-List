@@ -4,6 +4,9 @@ import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from '@mui/material/Button';
+import './AddMovie.css';
+import { Typography } from '@mui/material';
 
 //NOTE: My MUI select code was taken directly from https://mui.com/components/selects/ and adjusted to fit this program
 function AddMovie() {
@@ -55,9 +58,8 @@ function AddMovie() {
         history.push("/"); //go to the home page
     }
     return (
-        <div>
-            <p>Add movie.</p>
-            <p>{newGenres}</p>
+        <div className='movieForm'>
+            <Typography variant="h5">Add a movie!</Typography>
 
             <form onSubmit={handleFormSubmit}>
                 <input
@@ -82,15 +84,19 @@ function AddMovie() {
                     onChange={(event) => setNewMovie({ ...newMovie, description: event.target.value })}
                 />
                 <br />
-                <p>{newGenres}</p>
                 {/* taken directly from MUI with minor labeling adjustments */}
                 <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 300 }}>
-                    <InputLabel shrink htmlFor="select-multiple-native">
+                    <InputLabel style={{color: "white", borderColor: "red"}} shrink htmlFor="select-multiple-native">
                         Genres
                     </InputLabel>
                     <Select
                         multiple
                         native
+                        style={{
+                            borderColor: "red",
+                            backgroundColor: "antiquewhite",
+                            margin: "10px"
+                        }}
                         value={newGenres}
                         // @ts-ignore Typings are not considering `native`
                         onChange={handleChangeMultiple}
@@ -109,13 +115,20 @@ function AddMovie() {
 
                 <p>You can select multiple genres with the command(Mac) or ctrl(Windows) button.</p>
                 <br />
-                <button onClick={handleCancelButton}>Cancel</button>
-                <button type="submit">Save</button>
+                <Button 
+                    style={{
+                        backgroundColor: "#640d14",
+                        margin: "10px"
+                    }}
+                variant="contained" 
+                onClick={handleCancelButton}>Cancel</Button>
+                <Button style={{
+                    backgroundColor: "#ad2831",
+                    margin: "10px"
+                }}
+                variant="contained" type="submit">Save</Button>
             </form>
-
-
         </div>
-
     );
 }
 

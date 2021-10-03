@@ -3,15 +3,18 @@ import './App.css';
 import MovieList from '../MovieList/MovieList'
 import MovieDetails from '../MovieDetails/MovieDetails';
 import AddMovie from './AddMovie/AddMovie';
+import { Typography } from '@mui/material';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>The Movies Saga!</h1>
+      <header className="App-header">
+      <Typography variant="h1">The Movies Saga!</Typography>
+      </header>
       <Router>
 
         <Route path="/" exact>
-          <Link to="/addmovie">Add A New Movie</Link>
           <MovieList />
         </Route>
 

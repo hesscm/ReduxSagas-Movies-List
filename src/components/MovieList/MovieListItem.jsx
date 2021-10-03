@@ -1,20 +1,22 @@
 import { useDispatch } from 'react-redux';
 import {useHistory } from 'react-router-dom';
+import './MovieList.css'
+import { Typography } from '@mui/material';
 
 function MovieListItem({ movie }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleClickEvent = () => {
-        console.log('hey there');
         dispatch({type: 'TO_DETAILS_PAGE', payload: movie.id})
         history.push('/details')
 
     }
 
     return (
-        <div onClick={handleClickEvent}>
-            <h3>{movie.title}</h3>
+        <div className="movie" onClick={handleClickEvent}>
+            <Typography variant="h4">{movie.title}</Typography>
+            <br />
             <img src={movie.poster} alt={movie.title} />
         </div>
     );
