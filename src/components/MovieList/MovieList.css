@@ -7,7 +7,7 @@
     width: 300px;
     height: 430px;
     border: 4mm ridge rgba(224, 37, 37, 0.6);
-    margin: auto;
+    margin: 25px;
 }
 
 
@@ -15,4 +15,8 @@
 img {
     width: 185px;
     height: 273px;
+}
+
+body {
+background-image: url("https://www.transparenttextures.com/patterns/dark-stripes.png");
 }

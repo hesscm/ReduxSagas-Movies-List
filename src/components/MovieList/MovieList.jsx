@@ -27,7 +27,7 @@ function MovieList() {
             <Button
                 variant="contained"
                 style={{
-                    backgroundColor: "#640d14",
+                    backgroundColor: "#c4921c",
                     width: "200px",
                     fontSize: "20px",
                     margin: "10px",
