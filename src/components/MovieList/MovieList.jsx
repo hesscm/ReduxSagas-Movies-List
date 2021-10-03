@@ -21,8 +21,17 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
-            <Button variant="contained" onClick={handleClickEvent}>Add A Movie</Button>
+            <h1>Here are our movies. Click to learn more!</h1>
+            <Button 
+            variant="contained"
+                style={{
+                    backgroundColor: "#640d14",
+                    width: "200px",
+                    fontSize: "20px",
+                    margin: "10px",
+                    hover: "red"
+                }}
+            onClick={handleClickEvent}>Add A Movie</Button>
             <br /> <br />
             <section className="movies">
                 {movies.map(movie => {

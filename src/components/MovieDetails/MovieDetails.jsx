@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieDetails.css'
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 function MovieDetails() {
 
@@ -22,7 +23,7 @@ function MovieDetails() {
         for (let i = 0; i < genres.length; i++) {
             if (i != genres.length - 1) { //if this isn't the last element...
                 //add a genre to the string with a comma
-                genresString += genres[i] + ', '; 
+                genresString += genres[i] + ', ';
             } else { //this is the last element. just add the genre
                 genresString += genres[i];
             }
@@ -31,20 +32,29 @@ function MovieDetails() {
     }
     makeGenresString();
 
-const handleClickEvent = () => {
-    history.push("/");
-}
+    const handleClickEvent = () => {
+        history.push("/");
+    }
 
     return (
         <main>
-            <button onClick={handleClickEvent}>Back To List</button>
+ 
             <div className='movie'>
                 <h1>{movie.title}</h1>
                 <img src={movie.poster} alt={movie.title} />
                 <h5>Genres: {genresString}</h5>
-                <h3>Description</h3> <br />
+                <h3>Description</h3>
                 {movie.description}
+                <br />
+                <Button
+                    style={{
+                        backgroundColor: "#640d14",
+                        margin: "10px"
+                    }}
+                    variant="contained" onClick={handleClickEvent}>Back To List
+                </Button>
             </div>
+
         </main>
     );
 }

@@ -1,12 +1,13 @@
 body {
     background-color: black;
     color: white;
-
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 input, textarea {
     background-color: antiquewhite;
     margin: 5px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 
