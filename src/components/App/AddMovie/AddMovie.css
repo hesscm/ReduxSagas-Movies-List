@@ -8,9 +8,16 @@ input, textarea {
     background-color: antiquewhite;
     margin: 5px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
 }
 
+textarea {
+    height: 100px;
+    width: 300px;
+}
 
 .movieForm {
     border: 3px solid antiquewhite;
+    width: 50%;
+    margin: auto;
 }

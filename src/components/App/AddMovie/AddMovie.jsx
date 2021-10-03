@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import './AddMovie.css';
 import { Typography } from '@mui/material';
 
+
 //NOTE: My MUI select code was taken directly from https://mui.com/components/selects/ and adjusted to fit this program
 function AddMovie() {
     const history = useHistory();
@@ -52,7 +53,7 @@ function AddMovie() {
     //dispatch the form data to a saga
     const handleFormSubmit = (event) => {
         event.preventDefault(); //stop page from refreshing
-        dispatch({type: 'ADD_NEW_MOVIE', payload: newMovie})
+        dispatch({ type: 'ADD_NEW_MOVIE', payload: newMovie })
         console.log(newMovie);
         alert('New Movie Added. Now Returning to the main page.')
         history.push("/"); //go to the home page
@@ -89,7 +90,7 @@ function AddMovie() {
                 <br />
                 {/* taken directly from MUI with minor labeling adjustments */}
                 <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 175 }}>
-                    <InputLabel style={{color: "white"}} shrink htmlFor="select-multiple-native">
+                    <InputLabel style={{ color: "white" }} shrink htmlFor="select-multiple-native">
                         Genres
                     </InputLabel>
                     <Select
@@ -109,6 +110,7 @@ function AddMovie() {
                             id: 'genres',
                         }}
                     >
+                        {/* map the genres into the box */}
                         {genres.map((genre) => (
                             <option key={genre} value={genre}>
                                 {genre}
@@ -117,20 +119,23 @@ function AddMovie() {
                     </Select>
                 </FormControl>
 
-                <p>You can select multiple genres with the command(Mac) or ctrl(Windows) button.</p>
+                <p>Note: You can select multiple genres with the command(Mac) or ctrl(Windows) button.</p>
                 <br />
-                <Button 
+
+                <Button
                     style={{
                         backgroundColor: "#640d14",
                         margin: "10px"
                     }}
-                variant="contained" 
-                onClick={handleCancelButton}>Cancel</Button>
-                <Button style={{
-                    backgroundColor: "#ad2831",
-                    margin: "10px"
-                }}
-                variant="contained" type="submit">Save</Button>
+                    variant="contained"
+                    onClick={handleCancelButton}>Cancel</Button>
+
+                <Button
+                    style={{
+                        backgroundColor: "#ad2831",
+                        margin: "10px"
+                    }}
+                    variant="contained" type="submit">Save</Button>
             </form>
         </div>
     );
