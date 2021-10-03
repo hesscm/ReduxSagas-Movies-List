@@ -1,44 +1,53 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieDetails.css'
-
+import {useHistory} from 'react-router-dom';
 
 function MovieDetails() {
 
+    const history = useHistory();
     const dispatch = useDispatch();
-    const movie = useSelector(store => store.movie);
-    const genres = useSelector(store => store.genres);
-    let genresString = '';
+    const movie = useSelector(store => store.movie); //movie reducer array
+    const genres = useSelector(store => store.genres); //genres reducer array
+    let genresString = ''; //empty string to hold genres
 
-    const makeGenresString = () => {
-        console.log('oh no', genres);
-        for (let i = 0; i < genres.length; i++) {
-            if (i != genres.length - 1) {
-                genresString += genres[i] + ', ';
-            } else {
-                genresString += genres[i];
-            }
-        }
-    }
-    makeGenresString();
-
-
-
+    //on page load, go get the last selected movie data from DB
     useEffect(() => {
         dispatch({ type: 'GET_MOVIE' });
     }, []);
 
+    //transform the genres array into a string that is prettier on the DOM
+    //doing this because {genres[0]} or mapping sometimes breaks the program.
+    const makeGenresString = () => {
+        for (let i = 0; i < genres.length; i++) {
+            if (i != genres.length - 1) { //if this isn't the last element...
+                //add a genre to the string with a comma
+                genresString += genres[i] + ', '; 
+            } else { //this is the last element. just add the genre
+                genresString += genres[i];
+            }
+        }
+        return genresString;
+    }
+    makeGenresString();
+
+const handleClickEvent = () => {
+    history.push("/");
+}
+
+    
+
     return (
         <main>
+            <button onClick={handleClickEvent}>Back To List</button>
             <div className='movie'>
                 <h1>{movie.title}</h1>
                 <img src={movie.poster} alt={movie.title} />
-                <h4>Genres: {genresString}</h4>
-                <h4>Description</h4> <br />
+                <h5>Genres: {genresString}</h5>
+                <h3>Description</h3> <br />
                 {movie.description}
             </div>
         </main>
-
     );
 }
 
