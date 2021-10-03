@@ -99,7 +99,7 @@ function AddMovie() {
                         native
                         style={{
                             borderColor: "red",
-                            backgroundColor: "antiquewhite",
+                            backgroundColor: "#c4921c",
                             margin: "10px"
                         }}
                         value={newGenres}

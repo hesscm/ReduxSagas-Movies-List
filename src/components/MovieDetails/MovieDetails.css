@@ -10,10 +10,9 @@
 
 .descriptionTitle {
     border-bottom: 2px solid antiquewhite;
-
+    background-color: #c4921c;
 }
 
 body {
     background-image: url("https://www.transparenttextures.com/patterns/dark-stripes.png");
-
 }

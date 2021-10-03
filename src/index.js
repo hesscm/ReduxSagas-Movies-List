@@ -24,7 +24,6 @@ function* addMovie(action) {
     try {
         console.log('addMovie saga', action.payload);
         yield axios.post('/api/movie', action.payload);
-
     } catch (error) {
         console.log(error);
     }
@@ -60,6 +59,7 @@ function* postMovieID(action) {
 function* fetchAllMovies() {
     try {
         const movies = yield axios.get('/api/movie');
+        //send entire payload to movie reducer
         yield put({ type: 'SET_MOVIES', payload: movies.data });
     } catch (error) {
         console.log(error);

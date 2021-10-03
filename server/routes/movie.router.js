@@ -5,7 +5,12 @@ const pool = require('../modules/pool')
 let movieID = 0;
 
 router.get('/', (req, res) => {
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+  const query = `    SELECT movies.*,
+    array_agg(genres.name) AS genres FROM movies
+    JOIN movies_genres ON movies.id = movies_genres.movie_id
+    JOIN genres ON genres.id = movies_genres.genre_id
+    GROUP BY movies.id
+	ORDER BY "title" ASC`;
   pool.query(query)
     .then(result => {
       res.send(result.rows);
@@ -33,7 +38,13 @@ router.post('/movieID', (req, res) => {
 //This is used to save the movie on the details page
 router.get('/movieID', (req, res) => {
   console.log('movieID', movieID);
-  const query = `SELECT movies.*, array_agg(genres.name) AS genres FROM movies JOIN movies_genres ON movies.id = movies_genres.movie_id JOIN genres ON genres.id = movies_genres.genre_id WHERE movies.id = ${movieID} GROUP BY movies.id;`;
+  const query = `
+    SELECT movies.*, 
+    array_agg(genres.name) AS genres FROM movies 
+    JOIN movies_genres ON movies.id = movies_genres.movie_id 
+    JOIN genres ON genres.id = movies_genres.genre_id 
+    WHERE movies.id = ${movieID} 
+    GROUP BY movies.id;`;
   pool.query(query)
     .then(result => {
       res.send(result.rows);
@@ -64,26 +75,26 @@ router.post('/', (req, res) => {
       // Now handle the genre reference
       //updated query to match genre name instead of ID
       const insertMovieGenreQuery =
-      `INSERT into movies_genres (movie_id, genre_id)
+        `INSERT into movies_genres (movie_id, genre_id)
        VALUES($1, (SELECT genres.id FROM genres WHERE genres.name = $2));`
 
       // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
       //loop to send a query insert for how many genres were added to the movie
       for (let i = 0; i < req.body.genres.length; i++) {
         pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genres[i]])
-          
+
       }
       //this is the only way I could get this to stop from breaking the .then
       //I understand this is wrong, don't know what the right answer is though
       pool.query("SELECT * FROM movies")
-      .then(result => {
-        //Now that both are done, send back success!
-        res.sendStatus(201);
-      }).catch(err => {
-        // catch for second query
-        console.log(err);
-        res.sendStatus(500)
-      })
+        .then(result => {
+          //Now that both are done, send back success!
+          res.sendStatus(201);
+        }).catch(err => {
+          // catch for second query
+          console.log(err);
+          res.sendStatus(500)
+        })
 
       // Catch for first query
     }).catch(err => {

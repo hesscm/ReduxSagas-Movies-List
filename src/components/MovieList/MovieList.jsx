@@ -30,12 +30,12 @@ function MovieList() {
                     backgroundColor: "#c4921c",
                     width: "200px",
                     fontSize: "20px",
-                    margin: "10px",
+                    margin: "20px",
                 }}
                 onClick={handleClickEvent}>
                 Add A Movie
             </Button>
-            <br /> <br />
+            
             <section className="movies">
                 {movies.map(movie => {
                     return (
