@@ -18,7 +18,7 @@ See: https://github.com/hesscm/movies-sagas/wiki/Checklist
 
 ## Screen Shot
 
-![Example of Movies Sagas](moviessagaSS.PNG "Movies Sagas")
+![Example of Movies Sagas](moviesagaSS.PNG "Movies Sagas")
 
 ### Prerequisites
 
